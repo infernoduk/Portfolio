@@ -1,43 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const viewWorkBtn = document.querySelector('.primary-btn');
-    
-    viewWorkBtn.addEventListener('click', () => {
-        const projectsSection = document.querySelector('#projects');
-        projectsSection.scrollIntoView({ behavior: 'smooth' });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the resume button
-    const resumeButton = document.querySelector('.secondary-btn');
-    
-    // Add click event listener
-    resumeButton.addEventListener('click', function() {
-        // Open resume PDF in a new tab
-        window.open('resume.pdf', '_blank');
-    });
-
-    // Project filtering functionality
-    const filterButtons = document.querySelectorAll('.project-filters button');
+    const modal = document.querySelector('.modal');
+    const modalImg = modal.querySelector('img');
+    const closeBtn = modal.querySelector('.close-modal');
     const projectCards = document.querySelectorAll('.project-card');
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
+    // Function to open modal
+    function openModal(imgSrc) {
+        modalImg.src = imgSrc;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    }
 
-            const filterValue = button.textContent.toLowerCase();
+    // Function to close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        setTimeout(() => {
+            modalImg.src = ''; // Clear the image source after transition
+        }, 300);
+    }
 
-            projectCards.forEach(card => {
-                if (filterValue === 'all') {
-                    card.style.display = 'block';
-                } else {
-                    const category = card.getAttribute('data-category');
-                    card.style.display = category === filterValue ? 'block' : 'none';
-                }
+    // Add click event to project cards
+    projectCards.forEach(card => {
+        const projectImg = card.querySelector('img');
+        if (projectImg) {
+            card.addEventListener('click', () => {
+                openModal(projectImg.src);
             });
-        });
+        }
     });
-});
+
+    // Close modal when clicking close button
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close modal with escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}));
