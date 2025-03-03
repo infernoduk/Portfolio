@@ -1,4 +1,5 @@
-This is my personal <div id="school"><ul><li><a href="https://infernoduk.github.io/Code-portfolio/" target="_blank">ST dt school Website</a></li> portfolio website built with HTML, CSS, and JavaScript. It features a responsive design, animations, and a variety of interactive elements.
+<div id="school"><ul><li><a href="https://infernoduk.github.io/Code-portfolio/" target="_blank">ST dt school Website</a></li>
+This is my personal portfolio website built with HTML, CSS, and JavaScript. It features a responsive design, animations, and a variety of interactive elements.
 
 
 ## Features
